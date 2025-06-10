@@ -30,10 +30,9 @@
 
         // Create function for adding accounts to a Client
         public void AddAccount(AccountType accountType, string accountName) {
-            Account? account = null;
             /* Possibly change to else if or switch if there are more types of accounts */
             // Add either a savings or checking account depending on the Client's choice (0 - Savings, 1 - Checking)
-            account = (accountType == 0) ? null : null;
+            Account? account = accountType == 0 ? null : null;
             if (account != null) {
                 accounts.Add(account);
             }
