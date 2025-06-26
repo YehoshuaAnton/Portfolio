@@ -5,9 +5,9 @@
     }
 
     public abstract class Account {
-        public string Name { get; init; }
-        public string ID { get; init; }
-        public decimal Balance { get; init; }
+        public string? Name { get; init; }
+        public string? ID { get; init; }
+        public decimal Balance { get; set; }
 
         // Constructor for Account class
         public Account(string name) {
@@ -34,10 +34,10 @@
 
         // Create a method to deposit money into an account
         public virtual bool Deposit(string description, decimal amount, DateTime dateTime) {
-            if (amount > 0) {
-                amount = Math.Round(amount, 2, MidpointRounding.ToPositiveInfinity);
-                Balance += amount;
-                transactions.Insert(0, new Transaction(description, amount, dateTime));
+            if (amount > 0) {           // If the deposit is not negative or 0
+                amount = Math.Round(amount, 2, MidpointRounding.ToPositiveInfinity); // Round to the nearest hundredth
+                Balance += amount;              // Add the amount to the balance
+                transactions.Insert(0, new Transaction(description, amount, dateTime)); // Insert into the top of the Transactions List
                 return true;
             }
             return false;
@@ -45,13 +45,16 @@
 
         // Create a method to withdraw money from an account
         public virtual bool Withdraw(string description, decimal amount, DateTime dateTime) {
-            if (amount <= Balance && amount > 0) {
-                amount = Math.Round(amount, 2, MidpointRounding.ToPositiveInfinity);
-                Balance -= amount;
-                transactions.Insert(0, new Transaction(description, amount * -1, dateTime));
+            if (amount <= Balance && amount > 0) {          // If the withdrawal is no more than the balance and not negative or zero
+                amount = Math.Round(amount, 2, MidpointRounding.ToPositiveInfinity); // Round to the nearest hundredth
+                Balance -= amount;                      // Subtract the amount from the balance
+                transactions.Insert(0, new Transaction(description, amount * -1, dateTime)); // Insert into the top of Transactions List
                 return true;
             }
             return false;
         }
+
+        // Create a method detailing what to do at the end of each month
+        public abstract void EndOfMonth();
     }
 }

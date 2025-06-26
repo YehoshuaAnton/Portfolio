@@ -1,7 +1,7 @@
 ﻿namespace Bank_Library {
     public class Transaction {
         public DateTime DateTime = new();
-        public string Description { get; init; }
+        public string? Description { get; init; }
         public decimal Amount { get; init; }
 
         // Constructor for Transaction class

@@ -32,7 +32,7 @@
         public void AddAccount(AccountType accountType, string accountName) {
             /* Possibly change to else if or switch if there are more types of accounts */
             // Add either a savings or checking account depending on the Client's choice (0 - Savings, 1 - Checking)
-            Account? account = accountType == 0 ? null : null;
+            Account? account = accountType == 0 ? new Savings() : new Checking();
             if (account != null) {
                 accounts.Add(account);
             }
