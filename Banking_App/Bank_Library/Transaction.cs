@@ -4,7 +4,7 @@
         public string? Description { get; init; }
         public decimal Amount { get; init; }
 
-        // Constructor for Transaction class
+        // Constructor for the Transaction class
         public Transaction(string description, decimal amount, DateTime dateTime) {
             DateTime = dateTime;
             Description = description;

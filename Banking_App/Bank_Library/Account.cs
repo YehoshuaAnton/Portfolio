@@ -9,7 +9,7 @@
         public string? ID { get; init; }
         public decimal Balance { get; set; }
 
-        // Constructor for Account class
+        // Constructor for the Account class
         public Account(string name) {
             Name = name;
             ID = GenerateAccountID();

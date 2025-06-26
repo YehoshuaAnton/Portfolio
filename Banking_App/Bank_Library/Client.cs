@@ -5,7 +5,7 @@
         public string? ID { get; init; }
         public List<Account?> accounts;
 
-        // Constructor for Client class
+        // Constructor for the Client class
         public Client(string firstName, string lastName, AccountType accountType, string accountName) {
             FirstName = firstName;
             LastName = lastName;
@@ -32,7 +32,7 @@
         public void AddAccount(AccountType accountType, string accountName) {
             /* Possibly change to else if or switch if there are more types of accounts */
             // Add either a savings or checking account depending on the Client's choice (0 - Savings, 1 - Checking)
-            Account? account = accountType == 0 ? new Savings() : new Checking();
+            Account? account = accountType == 0 ? new Savings(accountName) : new Checking(accountName);
             if (account != null) {
                 accounts.Add(account);
             }
