@@ -28,5 +28,8 @@
             } while (usedID.Contains(i)); // As long as it isn't already in the list
             return i.ToString();        // Convert to string for ease of use
         }
+
+        // Create a List of Transactions
+        public List<Transaction> transactions = []; // Would use a stack, but can't serialize a public stack
     }
 }
