@@ -31,5 +31,27 @@
 
         // Create a List of Transactions
         public List<Transaction> transactions = []; // Would use a stack, but can't serialize a public stack
+
+        // Create a method to deposit money into an account
+        public virtual bool Deposit(string description, decimal amount, DateTime dateTime) {
+            if (amount > 0) {
+                amount = Math.Round(amount, 2, MidpointRounding.ToPositiveInfinity);
+                Balance += amount;
+                transactions.Insert(0, new Transaction(description, amount, dateTime));
+                return true;
+            }
+            return false;
+        }
+
+        // Create a method to withdraw money from an account
+        public virtual bool Withdraw(string description, decimal amount, DateTime dateTime) {
+            if (amount <= Balance && amount > 0) {
+                amount = Math.Round(amount, 2, MidpointRounding.ToPositiveInfinity);
+                Balance -= amount;
+                transactions.Insert(0, new Transaction(description, amount * -1, dateTime));
+                return true;
+            }
+            return false;
+        }
     }
 }
