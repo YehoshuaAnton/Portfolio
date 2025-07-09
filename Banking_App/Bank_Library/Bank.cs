@@ -17,6 +17,7 @@ namespace Bank_Library {
             clients = [];
         }
 
+        // Create method to add a new client (user)
         public void AddClient(string firstName, string lastName, AccountType accountType, string accountName) {
             clients.Add(new Client(firstName, lastName, accountType, accountName));
         }
