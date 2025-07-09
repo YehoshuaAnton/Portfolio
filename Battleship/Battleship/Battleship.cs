@@ -1,0 +1,61 @@
+﻿namespace Battleship {
+    internal class Battleship {
+        // Create boolean variables for the game
+        static bool playGame, newGame;
+        static int turnCount = 0, hitCount = 0;
+
+        // Create variables for the board
+        static int letter, number;
+        static readonly string[,] playerBoard = new string[10,10], computerBoard = new string[10,10];
+
+        static void Main(string[] args) {
+            //while (newGame == true) {
+            //    SetBoard();
+            //    while (playGame == true) {
+            //        DisplayBoard();
+            //    }
+            //}
+            SetBoard();
+            DisplayBoard();
+        }
+
+        // Clear the console and redisplay the board
+        static void DisplayBoard() {
+            Console.Clear();
+            DrawGrid();
+        }
+
+        // Create the grid for the board
+        static void DrawGrid() {
+            // Create the first line to show the numbers
+            Console.Write("   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |10 |");
+            DrawLine();
+            // For each row, write the letters A-J at the start
+            for (int rows = 0; rows < playerBoard.GetLength(0); rows++) {
+                Console.Write($" {(char)('A' + rows)} |");
+                // For each column in the row, display what is in the space
+                for (int columns = 0;  columns < playerBoard.GetLength(1); columns++) {
+                    Console.Write($" {playerBoard[rows,columns]} |");
+                }
+                DrawLine();
+            }
+        }
+
+        static void DrawLine() {
+            Console.WriteLine();
+            for (int i = 0; i < playerBoard.GetLength(0) + 1; i++) {
+                Console.Write("---+");
+            }
+            Console.WriteLine();
+        }
+
+        // Fill the not-yet-guessed spaces A-J and 1-10 with spaces
+        static void SetBoard() {
+            for (int row = 0; row < playerBoard.GetLength(0); row++) {
+                for (int column = 0; column < playerBoard.GetLength(1); column++) {
+                    playerBoard[row, column] = " ";
+                }
+            }
+        }
+    }
+}
