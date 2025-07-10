@@ -1,12 +1,15 @@
-﻿namespace Battleship {
+﻿using System.Text;
+
+namespace Battleship {
     internal class Battleship {
         // Create boolean variables for the game
         static bool playGame, newGame;
         static int turnCount = 0, hitCount = 0;
 
         // Create variables for the board
+        private const int BOARDSIZE = 10;
         static int letter, number;
-        static readonly string[,] playerBoard = new string[10,10], computerBoard = new string[10,10];
+        static readonly string[,] playerBoard = new string[BOARDSIZE, BOARDSIZE], computerBoard = new string[BOARDSIZE, BOARDSIZE];
 
         static void Main(string[] args) {
             //while (newGame == true) {
@@ -28,9 +31,13 @@
         // Create the grid for the board
         static void DrawGrid() {
             // Create the first line to show the numbers
-            Console.Write("   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |10 |");
+            StringBuilder firstLine = new("   |");
+            for (int i = 1; i <= BOARDSIZE; i++) {
+                firstLine.Append(i < 10 ? $" {i} |" : $"{i} |");
+            }
+            Console.Write(firstLine.ToString());
             DrawLine();
-            // For each row, write the letters A-J at the start
+            // For each row, write the corresponding uppercase letter at the start
             for (int rows = 0; rows < playerBoard.GetLength(0); rows++) {
                 Console.Write($" {(char)('A' + rows)} |");
                 // For each column in the row, display what is in the space
