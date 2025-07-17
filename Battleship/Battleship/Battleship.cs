@@ -16,10 +16,30 @@ namespace Battleship {
             //    SetBoard();
             //    while (playGame == true) {
             //        DisplayBoard();
+            //        FindCoordinates();
+
+            //        // If the player has already guessed these coorinates yet
+            //        if (playerBoard[letter, number] != " ") {
+            //            turnCount--;    // Decrement the turn counter
+            //            hitCount--;     // Decrement the hit counter
+            //        } else {        // If he hasn't
+            //            // If the coordinates that were guessed are a miss
+            //            if (computerBoard[letter, number] == null) {
+            //                playerBoard[letter, number] = "*";  // Mark the correspondint space with a "*"
+            //            } else {    // But if the guess was a hit
+            //                playerBoard[letter, number] = "!";  // Mark the corresponding space with a "!"
+            //                hitCount++;     // Increment the hit counter
+            //            }
+            //        }
+
+            //        turnCount++;    // Increment both counters
+            //        hitCount++;
+            //        EndGame();      // Run the end-of-game script
+
             //    }
             //}
             SetBoard();
-            DisplayBoard();
+            DisplayBoard(); 
         }
 
         // Clear the console and redisplay the board
@@ -120,6 +140,52 @@ namespace Battleship {
                         }
                     }
                 } 
+            }
+        }
+
+        // Create a method to ensure all guesses are correctly formatted
+        static void FindCoordinates() {
+            Console.WriteLine("Input a letter then a number (e.g. A1): ");
+            string coordinates = Console.ReadLine().ToUpper();
+            if (coordinates.Trim().Length < 2 ||        // Check if the guess has both a letter and number
+               (((int)coordinates[0] < 'A') || ((int)coordinates[0] > 'J')) || // The letter is between A and J
+               (((int)coordinates[1] < '1') || ((int)coordinates[1] > '9'))) { // And the number is between 1 and 10
+                Console.WriteLine("Please input your coordinates correctly");
+                Thread.Sleep(1000);
+            } else {            // If it does
+                letter = (int)coordinates[0] - 'A';
+                number = (int)coordinates[1] - '1';
+
+                // If the guess's length is more than two, set the number portion of it to 10
+                if (coordinates.Length > 2) {
+                    number = 9;
+                }
+            }
+
+        }
+
+        // Create a method to end the game
+        static void EndGame() {
+            if (hitCount == 17 || turnCount == 50) {
+                DisplayBoard();
+                NewGame();
+            }
+        }
+
+        // Create a method to see if the player wants to play again
+        static void NewGame() {
+            Thread.Sleep(1000);
+            playGame = false;
+            Console.WriteLine("Play again? Y/N");
+            string playAgain = Console.ReadLine().ToUpper();
+            if (playAgain[0] == 'Y') {
+                playGame = true;
+                SetBoard();
+            } else if (playAgain[0] == 'N') {
+                newGame = false;
+            } else {
+                Console.WriteLine("Please input either \"Y\" or \"N\"");
+                EndGame();
             }
         }
     }
