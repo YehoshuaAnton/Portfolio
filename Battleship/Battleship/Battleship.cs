@@ -35,7 +35,6 @@ namespace Battleship {
             //        turnCount++;    // Increment both counters
             //        hitCount++;
             //        EndGame();      // Run the end-of-game script
-
             //    }
             //}
             SetBoard();
