@@ -3,7 +3,7 @@
 namespace Battleship {
     internal class Battleship {
         // Create boolean variables for the game
-        static bool playGame, newGame;
+        static bool playGame = true, newGame = true;
         static int turnCount = 0, hitCount = 0;
 
         // Create variables for the board
@@ -12,39 +12,37 @@ namespace Battleship {
         static readonly string[,] playerBoard = new string[BOARDSIZE, BOARDSIZE], computerBoard = new string[BOARDSIZE, BOARDSIZE];
 
         static void Main(string[] args) {
-            //while (newGame == true) {
-            //    SetBoard();
-            //    while (playGame == true) {
-            //        DisplayBoard();
-            //        FindCoordinates();
+            while (newGame == true) {
+                SetBoard();
+                while (playGame == true) {
+                    DisplayBoard();
+                    // If the coordinates are correctly formatted and the player has not guessed them yet
+                    if (FindCoordinates() || playerBoard[letter, number] != " ") {
+                        turnCount--;    // Decrement the turn counter
+                    } else {        // If he hasn't
+                        // If the coordinates that were guessed are a miss
+                        if (computerBoard[letter, number] == null) {
+                            playerBoard[letter, number] = "*";  // Mark the correspondint space with a "*"
+                        } else {    // But if the guess was a hit
+                            if (playerBoard[letter, number] != " ") { // And if the space hasn't been guessed yet
+                                hitCount--;     // Decrement the hit counter
+                            } else {
+                                playerBoard[letter, number] = "!";  // Mark the corresponding space with a "!"
+                                hitCount++;     // Increment the hit counter
+                            }
+                        }
+                    }
 
-            //        // If the player has already guessed these coorinates yet
-            //        if (playerBoard[letter, number] != " ") {
-            //            turnCount--;    // Decrement the turn counter
-            //            hitCount--;     // Decrement the hit counter
-            //        } else {        // If he hasn't
-            //            // If the coordinates that were guessed are a miss
-            //            if (computerBoard[letter, number] == null) {
-            //                playerBoard[letter, number] = "*";  // Mark the correspondint space with a "*"
-            //            } else {    // But if the guess was a hit
-            //                playerBoard[letter, number] = "!";  // Mark the corresponding space with a "!"
-            //                hitCount++;     // Increment the hit counter
-            //            }
-            //        }
-
-            //        turnCount++;    // Increment both counters
-            //        hitCount++;
-            //        EndGame();      // Run the end-of-game script
-
-            //    }
-            //}
-            SetBoard();
-            DisplayBoard(); 
+                    turnCount++;    // Increment the turn counter
+                    EndGame();      // Run the end-of-game script
+                }
+            }
         }
 
         // Clear the console and redisplay the board
         static void DisplayBoard() {
             Console.Clear();
+            Console.WriteLine($"Turn count: {turnCount}\nHit count: {hitCount}\n");
             DrawGrid();
         }
 
@@ -144,7 +142,7 @@ namespace Battleship {
         }
 
         // Create a method to ensure all guesses are correctly formatted
-        static void FindCoordinates() {
+        static bool FindCoordinates() {
             Console.WriteLine("Input a letter then a number (e.g. A1): ");
             string coordinates = Console.ReadLine().ToUpper();
             if (coordinates.Trim().Length < 2 ||        // Check if the guess has both a letter and number
@@ -152,6 +150,7 @@ namespace Battleship {
                (((int)coordinates[1] < '1') || ((int)coordinates[1] > '9'))) { // And the number is between 1 and 10
                 Console.WriteLine("Please input your coordinates correctly");
                 Thread.Sleep(1000);
+                return true;
             } else {            // If it does
                 letter = (int)coordinates[0] - 'A';
                 number = (int)coordinates[1] - '1';
@@ -160,6 +159,8 @@ namespace Battleship {
                 if (coordinates.Length > 2) {
                     number = 9;
                 }
+
+                return false;
             }
 
         }
