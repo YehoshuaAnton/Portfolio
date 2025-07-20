@@ -33,10 +33,34 @@ namespace Battleship {
                         }
                     }
 
+<<<<<<< HEAD
                     turnCount++;    // Increment the turn counter
                     EndGame();      // Run the end-of-game script
                 }
             }
+=======
+            //        // If the player has already guessed these coorinates yet
+            //        if (playerBoard[letter, number] != " ") {
+            //            turnCount--;    // Decrement the turn counter
+            //            hitCount--;     // Decrement the hit counter
+            //        } else {        // If he hasn't
+            //            // If the coordinates that were guessed are a miss
+            //            if (computerBoard[letter, number] == null) {
+            //                playerBoard[letter, number] = "*";  // Mark the correspondint space with a "*"
+            //            } else {    // But if the guess was a hit
+            //                playerBoard[letter, number] = "!";  // Mark the corresponding space with a "!"
+            //                hitCount++;     // Increment the hit counter
+            //            }
+            //        }
+
+            //        turnCount++;    // Increment both counters
+            //        hitCount++;
+            //        EndGame();      // Run the end-of-game script
+            //    }
+            //}
+            SetBoard();
+            DisplayBoard(); 
+>>>>>>> 86db4b0e67ff369524787617806330bdfc7090c4
         }
 
         // Clear the console and redisplay the board
