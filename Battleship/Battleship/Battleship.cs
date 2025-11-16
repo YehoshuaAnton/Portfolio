@@ -5,7 +5,7 @@ namespace Battleship {
         // Create boolean variables for the game
         static bool playGame = true, newGame = true;
         static int turnCount = 0, hitCount = 0;
-        const int TURNCOUNT = 2, HITCOUNT = 17;
+        const int TURNCOUNT = 50, HITCOUNT = 17;
 
         // Create variables for the board
         private const int BOARDSIZE = 10;
@@ -20,17 +20,14 @@ namespace Battleship {
                     // If the coordinates are correctly formatted and the player has not guessed them yet
                     if (FindCoordinates() || playerBoard[letter, number] != " ") {
                         turnCount--;    // Decrement the turn counter
-                    }
-                    else {        // If he hasn't
+                    } else {        // If he hasn't yet guessed the coordinates
                         // If the coordinates that were guessed are a miss
                         if (computerBoard[letter, number] == null) {
                             playerBoard[letter, number] = "*";  // Mark the correspondint space with a "*"
-                        }
-                        else {    // But if the guess was a hit
+                        } else {    // But if the guess was a hit
                             if (playerBoard[letter, number] != " ") { // And if the space hasn't been guessed yet
                                 hitCount--;     // Decrement the hit counter
-                            }
-                            else {
+                            } else {
                                 playerBoard[letter, number] = "!";  // Mark the corresponding space with a "!"
                                 hitCount++;     // Increment the hit counter
                             }
