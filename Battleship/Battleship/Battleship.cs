@@ -5,6 +5,7 @@ namespace Battleship {
         // Create boolean variables for the game
         static bool playGame = true, newGame = true;
         static int turnCount = 0, hitCount = 0;
+        const int TURNCOUNT = 2, HITCOUNT = 17;
 
         // Create variables for the board
         private const int BOARDSIZE = 10;
@@ -145,10 +146,10 @@ namespace Battleship {
 
         // Create a method to ensure all guesses are correctly formatted
         static bool FindCoordinates() {
-            Console.WriteLine("Input a letter then a number (e.g. A1): ");
+            Console.Write("Input a letter then a number (e.g. A1): ");
             string coordinates = Console.ReadLine().ToUpper();
             if (coordinates.Trim().Length < 2 ||        // Check if the guess has both a letter and number
-               (((int)coordinates[0] < 'A') || ((int)coordinates[0] > 'J')) || // The letter is between A and J
+               (((int)coordinates[0] < 'A') || ((int)coordinates[0] > 'A' + (BOARDSIZE - 1))) || // The letter is between A and J
                (((int)coordinates[1] < '1') || ((int)coordinates[1] > '9'))) { // And the number is between 1 and 10
                 Console.WriteLine("Please input your coordinates correctly");
                 Thread.Sleep(1000);
@@ -169,7 +170,7 @@ namespace Battleship {
 
         // Create a method to end the game
         static void EndGame() {
-            if (hitCount == 17 || turnCount == 50) {
+            if (hitCount == HITCOUNT || turnCount == TURNCOUNT) {
                 DisplayBoard();
                 NewGame();
             }
@@ -183,11 +184,14 @@ namespace Battleship {
             string playAgain = Console.ReadLine().ToUpper();
             if (playAgain[0] == 'Y') {
                 playGame = true;
+                turnCount = 0;
+                hitCount = 0;
                 SetBoard();
             } else if (playAgain[0] == 'N') {
                 newGame = false;
             } else {
                 Console.WriteLine("Please input either \"Y\" or \"N\"");
+                Thread.Sleep(1000);
                 EndGame();
             }
         }

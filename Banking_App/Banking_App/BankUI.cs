@@ -2,6 +2,7 @@ using Bank_Library;
 
 namespace Banking_App {
     internal static class BankUI {
+        public static Bank bank = Bank.CreateBankInstance();
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
